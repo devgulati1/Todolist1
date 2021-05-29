@@ -200,7 +200,7 @@ let removeItem=(e)=>{
         
     }else if(e.target.classList.contains("margin-tick-button")){
         let tickButton=e.target.parentElement;
-        tickButton.classList.add("line");
+        tickButton.classList.toggle("line");
 
     }
 }
