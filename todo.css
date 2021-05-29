@@ -20,10 +20,20 @@ body{
 }
 .input-div{
     text-align: center;
+    height: 1em;
+
+    
+}
+.enter{
+    background-color: blueviolet;
+    padding: 2px;
+    margin: 2px;
+font-size: 0.5em;
 }
 .list-items{
     text-align: center;
    border: 3px solid black;
+   margin: 20px;
     
     box-shadow: 5px 10px gray;
     
