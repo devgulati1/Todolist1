@@ -4,6 +4,7 @@ let ul=document.querySelector(".list-items");
 
 
 
+
 // save items in local storage
 
 let save=(todo)=>{
@@ -39,6 +40,12 @@ let get=(todo)=>{
 
     li.appendChild(liText);
     li.style.listStyle="none";
+    // ------create buttonTick here------    
+    let buttonTick=document.createElement("button");
+    let buttonText=document.createTextNode("✅")
+
+    buttonTick.appendChild(buttonText);
+    buttonTick.classList.add("margin-tick-button");
 
     // creating button
     let button=document.createElement("button");
@@ -54,6 +61,11 @@ let get=(todo)=>{
     // adding margin to button
     button.classList.add("adding-margin");
 
+   
+   // appending buttonTick to li
+   li.appendChild(buttonTick);
+
+   
     // appending it to li
     li.appendChild(button);
 
@@ -105,9 +117,16 @@ let createListAndButton=()=>{
 
     li.appendChild(liText);
     li.style.listStyle="none";
+    // ------create buttonTick here------    
+    let buttonTick=document.createElement("button");
+    let buttonText=document.createTextNode("✅")
+
+    buttonTick.appendChild(buttonText);
+    buttonTick.classList.add("margin-tick-button");
 
     // creating button
     let button=document.createElement("button");
+
 
     // creating textNode in button
     //  let buttonText=document.createTextNode("delete");
@@ -120,8 +139,12 @@ let createListAndButton=()=>{
     // adding margin to button
     button.classList.add("adding-margin")
 
-    // appending it to li
+    
+// appending buttonTick to li
+    li.appendChild(buttonTick);
+    // appending button to li
     li.appendChild(button);
+    
 
     
 
@@ -129,7 +152,8 @@ let createListAndButton=()=>{
     console.log("creating item"+input.value);
     save(input.value);
     input.value="";
-    // console.log(li);
+     console.log("li in craete is "+li.innerHTML);
+     
     }
     
 }
@@ -140,24 +164,44 @@ let afterEnter=(e)=>{
 
 }
 
+//MAKING LINE THROUGH BY PRESSING TICK
+let makeTick=(e)=>{
+    console.log(e)
+} 
+
+
 // REMOVE ITEM
 let removeItem=(e)=>{
+    console.log("e.target "+e)
     if(e.target.classList.contains("adding-margin")){
         
+        
             let li=e.target.parentElement;
-            console.log("li  "+e.target.parentElement);
+             let buttonTick=e.target.previousElementSibling;
+             console.log("buttonTick "+buttonTick);
+            console.log("li "+li);
+
             ul.removeChild(li);
+            let buttonTickText=buttonTick.innerText;
             let item=li.innerText;
             let buttonText=e.target.innerText;
             let finalText=item.replace(buttonText,'');
+            let finalTextTick=finalText.replace(buttonTickText,'');
             
+            
+            console.log("in button text tick is "+buttonTickText)
+
             console.log("in remove item  li text  is  "+item);
             console.log("button text is  "+buttonText);
-            console.log("final text is "+finalText);
-             removeItems(finalText);
+            console.log("final text is "+finalTextTick);
+             removeItems(finalTextTick);
            
 
         
+    }else if(e.target.classList.contains("margin-tick-button")){
+        let tickButton=e.target.parentElement;
+        tickButton.classList.add("line");
+
     }
 }
 
@@ -166,6 +210,8 @@ window.addEventListener('DOMContentLoaded',get);
 enter.addEventListener("click",createListAndButton)
 input.addEventListener("keypress",afterEnter,)
 ul.addEventListener("click",removeItem);
+
+
 
 // let saved=localStorage.getItem("data");
 // if(saved){
